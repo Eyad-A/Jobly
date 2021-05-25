@@ -11,6 +11,7 @@ const {
   commonBeforeEach,
   commonAfterEach,
   commonAfterAll,
+  testJobIds,
   u1Token,
   u2Token,
   adminToken,
@@ -200,6 +201,7 @@ describe("GET /users/:username", function () {
         lastName: "U1L",
         email: "user1@user.com",
         isAdmin: false,
+        applications: [testJobIds[0]],
       },
     });
   });
@@ -215,6 +217,7 @@ describe("GET /users/:username", function () {
         lastName: "U1L",
         email: "user1@user.com",
         isAdmin: false,
+        applications: [testJobIds[0]],
       },
     });
   });
@@ -374,5 +377,25 @@ describe("DELETE /users/:username", function () {
       .delete(`/users/nope`)
       .set("authorization", `Bearer ${adminToken}`);
     expect(resp.statusCode).toEqual(404);
+  });
+});
+
+
+/********** POST /users/:username/jobs/:id */
+
+describe("POST /users/:username/jobs/:id", function() {
+  
+  test("it should work for admin", async function() {
+    const resp = await request(app)
+    .post(`/users/u1/jobs/${testJobIds[1]}`)
+    .set("authorization", `Bearer ${adminToken}`);
+  expect(resp.body).toEqual({applied: testJobIds[1]});
+  });
+
+  test("it should work for same user", async function () {
+    const resp = await request(app)
+        .post(`/users/u1/jobs/${testJobIds[1]}`)
+        .set("authorization", `Bearer ${u1Token}`);
+    expect(resp.body).toEqual({ applied: testJobIds[1] });
   });
 });
