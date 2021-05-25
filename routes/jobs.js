@@ -10,7 +10,6 @@ const Job = require("../models/job");
 const jobNewSchema = require("../schemas/jobNew.json");
 const jobUpdateSchema = require("../schemas/jobUpdate.json");
 const jobSearchSchema = require("../schemas/jobSearch.json");
-const db = require("../db");
 const router = express.Router({ mergeParams: true });
 
 
