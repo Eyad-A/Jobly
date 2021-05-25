@@ -118,6 +118,15 @@ class Company {
 
     if (!company) throw new NotFoundError(`No company: ${handle}`);
 
+    const jobsResp = await db.query(
+      `SELECT id, title, salary, equity 
+      FROM jobs 
+      WHERE company_handle = $1 
+      ORDER BY id`,
+      [handle],
+    );
+
+    company.jobs = jobsResp.rows;
     return company;
   }
 
