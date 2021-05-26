@@ -145,7 +145,7 @@ describe("PATCH /jobs/:id", function () {
         expect(resp.body).toEqual({
             job: {
                 id: expect.any(Number),
-                title: "J-New",
+                title: "Project Manager",
                 salary: 1,
                 equity: "0.1",
                 companyHandle: "c1",
