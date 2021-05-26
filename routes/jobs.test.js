@@ -25,7 +25,7 @@ afterAll(commonAfterAll);
 describe("POST /jobs", function () {
     test("admin can post a job", async function () {
         const resp = await request(app)
-            .post(`jobs`)
+            .post(`/jobs`)
             .send({
                 companyHandle: "c1",
                 title: "Software Engineer",
